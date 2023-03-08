@@ -9,7 +9,8 @@ GameGrid::GameGrid(int row_num, int column_num): rows(row_num), columns(column_n
 
 
 void GameGrid::PrintGrid() {
-
+    
+    // Loop through entire grid:
     for (auto &i: grid) {
         for (auto &j: i) {
             std::cout << j;

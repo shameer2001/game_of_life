@@ -19,6 +19,7 @@ set(TEST_CASES
   golBasicTest
   golCommandLineArgsTest
   # Add name of new test file here (without .cpp extension) to build a new test executable
+  golGridTest
 )
 
 foreach(_test_case ${TEST_CASES})
@@ -36,3 +37,4 @@ endforeach()
 add_test(NoArgs ${EXECUTABLE_OUTPUT_PATH}/golBasicTest)
 add_test(1File ${EXECUTABLE_OUTPUT_PATH}/golCommandLineArgsTest ${DATA_DIR}/input.txt)
 # Add add_test line here to expose a new test executable to CTest
+add_test(GameGrid ${EXECUTABLE_OUTPUT_PATH}/golGridTest)
