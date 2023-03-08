@@ -15,9 +15,9 @@ class GameGrid
 
     GameGrid(int row_num, int column_num);
 
-    void printGrid();
-    char get(int row, int column);
-    void set(int row, int column, char value);
+    void PrintGrid();
+    char Get(int row, int column);
+    void Set(int row, int column, char value);
 
 
 

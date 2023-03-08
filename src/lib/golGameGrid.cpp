@@ -8,7 +8,7 @@ GameGrid::GameGrid(int row_num, int column_num): rows(row_num), columns(column_n
 }
 
 
-void GameGrid::printGrid() {
+void GameGrid::PrintGrid() {
 
     for (auto &i: grid) {
         for (auto &j: i) {
@@ -21,10 +21,10 @@ void GameGrid::printGrid() {
 
 
 
-char GameGrid::get(int row, int column) {
+char GameGrid::Get(int row, int column) {
     return grid[row][column];
 }
-void GameGrid::set(int row, int column, char value) {
+void GameGrid::Set(int row, int column, char value) {
     grid[row][column] = value;
 }
 
