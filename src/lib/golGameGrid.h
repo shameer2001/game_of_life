@@ -14,10 +14,13 @@ class GameGrid
     public:
 
     GameGrid(int row_num, int column_num);
+    GameGrid(int row_num, int column_num, int alive_rand); 
 
     void PrintGrid();
     char Get(int row, int column);
     void Set(int row, int column, char value);
+
+    void SetRand();
 
 
 
@@ -27,16 +30,11 @@ class GameGrid
     bool status;
     int columns;
     int rows;
+    int alive;
 
 
     std::vector<std::vector<char>> grid;
     
-
-
-
-
-
-
 
 };
 

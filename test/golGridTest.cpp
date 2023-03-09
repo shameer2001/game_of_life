@@ -28,7 +28,11 @@ TEST_CASE( "Assess Instantiation of GameGrid class", "[GameGrid]" ) {
 
 }
 
-TEST_CASE( "My second test", "[some group identifier]" ) {
+
+
+
+
+TEST_CASE( "My second test", "[GameGridRandom]" ) {
   std::vector<int> a;
   REQUIRE( a.size() == 0 );
 }
