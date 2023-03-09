@@ -1,6 +1,6 @@
 #include "golGameGrid.h"
 
-
+// Empty default constructor for testing purposes
 GameGrid::GameGrid() {};
 
 GameGrid::GameGrid(int row_num, int column_num): rows(row_num), columns(column_num)   {
@@ -18,7 +18,28 @@ GameGrid::GameGrid(int row_num, int column_num, int alive_num): rows(row_num), c
     SetRand();
 }
 
+// Constructor for grid initialisation from a file
+GameGrid::GameGrid(std::string filename) {
+    std::ifstream file(filename);
 
+    std::vector<char> single_line;
+    std::string line;
+
+    while (std::getline(file, line))
+    {
+        for(auto &i: line){
+            if(i == '-' || i == 'o') {
+                single_line.push_back(i);
+            }
+            
+        }
+        grid.push_back(single_line);
+    }
+
+    rows = grid.size();
+    columns = single_line.size();
+
+}
 
 
 

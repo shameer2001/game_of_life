@@ -15,9 +15,10 @@ class GameGrid
 {
     public:
 
-    GameGrid(); // Empty default constructor for testing purposes
+    GameGrid(); 
     GameGrid(int row_num, int column_num);
     GameGrid(int row_num, int column_num, int alive_rand); 
+    GameGrid(std::string filename);
     
     std::vector<std::vector<char>> GetGrid();
 
