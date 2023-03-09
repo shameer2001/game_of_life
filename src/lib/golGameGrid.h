@@ -25,6 +25,7 @@ class GameGrid
     void PrintGrid();
     char Get(int row, int column);
     void Set(int row, int column, char alive);
+    int LiveNeighbours(int row, int column);
 
     void SetRand();
 

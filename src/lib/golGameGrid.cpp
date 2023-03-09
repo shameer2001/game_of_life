@@ -104,6 +104,28 @@ void GameGrid::SetRand() {
 }
 
 
+int GameGrid::LiveNeighbours(int row, int column) {
+
+    int live_num = 0;
+
+    // Loop through cells around user-input cell (ie row above & column above, row above & column to the left etc.)
+    for (int i = row - 1; i <= row + 1; i++) {
+        for (int j = column - 1; j <= column + 1; j++) {
+
+            if (i >= 0 && j >= 0 && i < rows && j < columns 
+            && !(i == row && j == column) && Get(i, j) == 'o') {
+                live_num++;
+            }
+
+        }
+    }
+
+    return live_num;
+
+}
+
+
+
 
 
 
@@ -151,14 +173,12 @@ void GameGrid::CheckFileExists(std::string file_path) {
 //     GameGrid testGrid1("test/data/glider.txt");
 //     testGrid1.PrintGrid();
 
-//     std::cout << testGrid1.Get(2,0) << std::endl;
-//     std::cout << testGrid1.Get(3,1) << std::endl;
-//     std::cout << testGrid1.Get(3,2) << std::endl;
-//     std::cout << testGrid1.Get(2,2) << std::endl;
-//     std::cout << testGrid1.Get(1,2) << std::endl;
+//     // std::cout << testGrid1.Get(2,0) << std::endl;
+//     // std::cout << testGrid1.Get(3,1) << std::endl;
+//     // std::cout << testGrid1.Get(3,2) << std::endl;
+//     // std::cout << testGrid1.Get(2,2) << std::endl;
+//     // std::cout << testGrid1.Get(1,2) << std::endl;
 
-//     GameGrid lol(5,5);
-//     lol.PrintGrid();
-
+//     std::cout << testGrid1.LiveNeighbours(2, 0) << std::endl;
 
 // };
