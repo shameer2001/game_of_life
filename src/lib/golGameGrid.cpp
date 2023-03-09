@@ -91,8 +91,9 @@ void GameGrid::CheckGridSize(int row_num, int col_num) {
             throw std::out_of_range("The grid rows and columns must be positive integers");
         }
     }
-    catch(std::out_of_range& err_msg) {
-        std::cout << "Exception: " << err_msg.what() << std::endl;
+    catch(std::out_of_range &err_msg) {
+        std::cerr << "Exception: " << err_msg.what() << std::endl;
+        throw; // Throw the SAME exception
     }
 }
 
@@ -103,8 +104,9 @@ void GameGrid::CheckAliveNum(int row_num, int col_num, int alive_num) {
             throw std::out_of_range("The number of alive cells must be non-negative and less than the grid size!");
         }
     }
-    catch(std::out_of_range& err_msg) {
-        std::cout << "Exception: " << err_msg.what() << std::endl;
+    catch(std::out_of_range &err_msg) {
+        std::cerr << "Exception: " << err_msg.what() << std::endl;
+        throw;
     }
 }
 
