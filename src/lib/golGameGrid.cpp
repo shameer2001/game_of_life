@@ -1,19 +1,33 @@
 #include "golGameGrid.h"
 
 
+GameGrid::GameGrid() {};
 
 GameGrid::GameGrid(int row_num, int column_num): rows(row_num), columns(column_num)   {
-
+    CheckGridSize(rows, columns);
     grid = std::vector<std::vector<char>>(rows, std::vector<char>(columns, '-'));
 }
 
 // Constructor for random grid initialisation
 GameGrid::GameGrid(int row_num, int column_num, int alive_num): rows(row_num), columns(column_num), alive(alive_num)   {
+    CheckGridSize(rows, columns);
+    CheckAliveNum(rows, columns, alive);
+
 
     grid = std::vector<std::vector<char>>(rows, std::vector<char>(columns, '-'));
     SetRand();
 }
 
+
+
+
+
+
+
+
+std::vector<std::vector<char>> GameGrid::GetGrid() {
+    return grid;
+}
 
 
 void GameGrid::PrintGrid() {
@@ -43,7 +57,10 @@ void GameGrid::Set(int row, int column, char value) {
 void GameGrid::SetRand() {
 
     int alive_count = 0;
-    srand(time(nullptr)); // Set random seed
+    //srand(time(nullptr)); // Set random seed
+    
+    unsigned seed = std::chrono::high_resolution_clock::now().time_since_epoch().count(); // Set random seed
+    srand(seed);
 
 
     while (alive != alive_count)
@@ -58,11 +75,40 @@ void GameGrid::SetRand() {
         }
     }
 
+    
+
         
 }
 
 
 
+
+
+
+void GameGrid::CheckGridSize(int row_num, int col_num) {
+    try{
+        if (row_num <= 0 || col_num <= 0) {
+            throw std::out_of_range("The grid rows and columns must be positive integers");
+        }
+    }
+    catch(std::out_of_range* err_msg) {
+        std::cout << "Exception: " << err_msg << std::endl;
+    }
+}
+
+
+void GameGrid::CheckAliveNum(int row_num, int col_num, int alive_num) {
+    try{
+        if (alive_num < 0   ||    alive_num > row_num*col_num) {
+            throw std::out_of_range("The number of alive cells must be non-negative and less than the grid size!");
+        }
+    }
+    catch(std::out_of_range* err_msg) {
+        std::cout << "Exception: " << err_msg << std::endl;
+    }
+}
+
 // int main(){
+
 
 // };
