@@ -18,9 +18,9 @@ class GameGrid
     GameGrid(); 
     GameGrid(int row_num, int column_num);
     GameGrid(int row_num, int column_num, int alive_rand); 
-    GameGrid(std::string filename);
+    GameGrid(std::string file_path);
     
-    std::vector<std::vector<char>> GetGrid();
+    std::pair<int, int> GetGridSize();
 
     void PrintGrid();
     char Get(int row, int column);
@@ -31,6 +31,7 @@ class GameGrid
 
     void CheckGridSize(int row_num, int col_num);
     void CheckAliveNum(int row_num, int col_num, int alive_num); 
+    void CheckFileExists(std::string file_path);
 
 
 

@@ -59,6 +59,7 @@ TEST_CASE("Confirm Random Pattern of 2 Equal Parameter Grids are Different", "[G
 
 
 
+
 TEST_CASE("Confirm Same Number of Alive Cells in 2 Equal Parameter Grids", "[GameGridRandom]" ) {
   int rows = 25;
   int columns = 26;
@@ -69,8 +70,6 @@ TEST_CASE("Confirm Same Number of Alive Cells in 2 Equal Parameter Grids", "[Gam
   int grid1_alive = 0;
   int grid2_alive = 0;
 
-
-  // Loop through all of grid:
 
   for(int i = 0; i < rows; i++) {
     for(int j = 0; j < columns; j++) {
@@ -88,10 +87,6 @@ TEST_CASE("Confirm Same Number of Alive Cells in 2 Equal Parameter Grids", "[Gam
   REQUIRE(grid2_alive == 50);
 }
 
-
-
-
-
 TEST_CASE("Check Input Parameters for Random Initialisation Constructor", "[GameGridRandom]" ) {
   GameGrid testGrid;
 
@@ -108,4 +103,91 @@ TEST_CASE("Check Input Parameters for Random Initialisation Constructor", "[Game
     REQUIRE_THROWS(testGrid.CheckAliveNum(5, 5, -4));
     REQUIRE_THROWS(testGrid.CheckAliveNum(10, 10, 1000));
   }
+}
+
+
+
+
+
+
+
+TEST_CASE("Check File Constructor Grid Cell", "[GameGridFile]" ) {
+  GameGrid testGrid1("../../test/data/glider.txt");
+  GameGrid testGrid2("../../test/data/oscillators.txt");
+  GameGrid testGrid3("../../test/data/still_lifes.txt");
+
+
+  SECTION("Check if grid is read correctly", "[GameGridFile]") {
+    // Check grid sizes:
+    REQUIRE(testGrid1.GetGridSize().first == 10);
+    REQUIRE(testGrid1.GetGridSize().second == 10);
+
+    REQUIRE(testGrid2.GetGridSize().first == 12);
+    REQUIRE(testGrid2.GetGridSize().second == 12);
+
+    REQUIRE(testGrid3.GetGridSize().first == 10);
+    REQUIRE(testGrid3.GetGridSize().second == 10);
+
+
+    // Check alive and dead cells and location:
+    REQUIRE( testGrid1.Get(2, 0) == 'o');
+    REQUIRE( testGrid1.Get(3, 1) == 'o');
+    REQUIRE( testGrid1.Get(3, 2) == 'o');
+    REQUIRE( testGrid1.Get(2, 2) == 'o');
+    REQUIRE( testGrid1.Get(1, 2) == 'o');
+
+    int grid1Rows = testGrid1.GetGridSize().first;
+    int grid1Cols = testGrid1.GetGridSize().second;
+
+    int dead_num = 0;
+
+    for(int i = 0; i < grid1Rows; i++) {
+      for(int j = 0; j < grid1Cols; j++) {
+
+        if ( (i != 2 && j != 0) 
+        || (i != 3 && j != 1) 
+        || (i != 3 && j != 2) 
+        || (i != 2 && j != 2) 
+        || (i != 1 && j != 2)) // Except cells already tested are alive
+        {
+
+          if(testGrid1.Get(i, j) == '-') {
+            dead_num++;
+
+          }
+        }
+      }
+    }
+
+    REQUIRE(dead_num == 95);
+    REQUIRE(grid1Rows*grid1Cols - dead_num == 5); // Alive number
+  
+  }
+
+
+
+  testGrid1.Set(2, 0, '-');
+  testGrid2.Set(5, 8, 'o');
+  testGrid3.Set(9, 9, 'o');
+
+  SECTION("Check if Set method works with grid from file", "[GameGridFile]") {
+    REQUIRE( testGrid1.Get(2, 0) == '-');
+    REQUIRE( testGrid2.Get(5, 8) == 'o');
+    REQUIRE( testGrid3.Get(9, 9) == 'o');
+  }
+}
+
+
+
+TEST_CASE("File Does Not Exist Error Message", "[GameGridFile]" ) {
+  GameGrid testGrid;
+
+
+  REQUIRE_THROWS(testGrid.CheckFileExists("../../test/data/gliderrr.txt"));
+  REQUIRE_THROWS(testGrid.CheckFileExists("../../test/dataaa/oscillators.txt"));
+  REQUIRE_THROWS(testGrid.CheckFileExists("../../tesst/data/still_lifess.txt"));
+
+  REQUIRE_NOTHROW(testGrid.CheckFileExists("../../test/data/glider.txt"));
+  REQUIRE_NOTHROW(testGrid.CheckFileExists("../../test/data/oscillators.txt"));
+  REQUIRE_NOTHROW(testGrid.CheckFileExists("../../test/data/still_lifes.txt"));
 }

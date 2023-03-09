@@ -18,27 +18,29 @@ GameGrid::GameGrid(int row_num, int column_num, int alive_num): rows(row_num), c
     SetRand();
 }
 
-// Constructor for grid initialisation from a file
-GameGrid::GameGrid(std::string filename) {
-    std::ifstream file(filename);
+// Constructor for grid initialization from a file
+GameGrid::GameGrid(std::string file_path) {
+    CheckFileExists(file_path);
+    std::ifstream file(file_path);
 
-    std::vector<char> single_line;
+
     std::string line;
+    while (std::getline(file, line)) {
 
-    while (std::getline(file, line))
-    {
-        for(auto &i: line){
-            if(i == '-' || i == 'o') {
+        std::vector<char> single_line;
+
+        for (char i : line) {
+            if (i == 'o' || i == '-') {
                 single_line.push_back(i);
-            }
-            
+            } 
         }
         grid.push_back(single_line);
     }
 
     rows = grid.size();
-    columns = single_line.size();
+    columns = grid[0].size();
 
+    file.close();
 }
 
 
@@ -46,8 +48,8 @@ GameGrid::GameGrid(std::string filename) {
 
 
 
-std::vector<std::vector<char>> GameGrid::GetGrid() {
-    return grid;
+std::pair<int, int> GameGrid::GetGridSize() {
+    return {grid.size(), grid[0].size()};  // rows, columns
 }
 
 
@@ -113,7 +115,7 @@ void GameGrid::CheckGridSize(int row_num, int col_num) {
         }
     }
     catch(std::out_of_range &err_msg) {
-        std::cerr << "Exception: " << err_msg.what() << std::endl;
+        std::cerr << "Error: " << err_msg.what() << std::endl;
         throw; // Throw the SAME exception
     }
 }
@@ -126,12 +128,37 @@ void GameGrid::CheckAliveNum(int row_num, int col_num, int alive_num) {
         }
     }
     catch(std::out_of_range &err_msg) {
-        std::cerr << "Exception: " << err_msg.what() << std::endl;
+        std::cerr << "Error: " << err_msg.what() << std::endl;
+        throw;
+    }
+}
+
+
+void GameGrid::CheckFileExists(std::string file_path) {
+    std::ifstream file(file_path);
+    try{
+        if (!file.is_open()) {
+            throw std::runtime_error("Failed to open file. Make sure the path is correct and the file exists.");
+        }
+    }
+    catch(std::runtime_error &err_msg) {
+        std::cerr << "Error: " << err_msg.what() << std::endl;
         throw;
     }
 }
 
 // int main(){
+//     GameGrid testGrid1("test/data/glider.txt");
+//     testGrid1.PrintGrid();
+
+//     std::cout << testGrid1.Get(2,0) << std::endl;
+//     std::cout << testGrid1.Get(3,1) << std::endl;
+//     std::cout << testGrid1.Get(3,2) << std::endl;
+//     std::cout << testGrid1.Get(2,2) << std::endl;
+//     std::cout << testGrid1.Get(1,2) << std::endl;
+
+//     GameGrid lol(5,5);
+//     lol.PrintGrid();
 
 
 // };
