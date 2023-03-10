@@ -248,25 +248,3 @@ void GameGrid::CheckCellLocation(int row, int col) {
         throw;
     }
 }
-
-// int main(){
-//     GameGrid testGrid1("test/data/glider.txt");
-//     testGrid1.PrintGrid();
-
-//     GameGrid testGrid2( 5, 5);
-
-//     // std::cout << testGrid1.Get(2,0) << std::endl;
-//     // std::cout << testGrid1.Get(3,1) << std::endl;
-//     // std::cout << testGrid1.Get(3,2) << std::endl;
-//     // std::cout << testGrid1.Get(2,2) << std::endl;
-//     // std::cout << testGrid1.Get(1,2) << std::endl;
-
-//     // if (testGrid1.IfSameGrid( testGrid1 ) == true) {
-//     //     std::cout << testGrid1.IfSameGrid( testGrid1 ) << std::endl;
-//     // }
-//     //std::cout << testGrid1.LiveNeighbours(2, 0) << std::endl;
-
-
-//     std::cout << testGrid1.IfEmpty() << std::endl;
-
-// };

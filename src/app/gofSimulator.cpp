@@ -9,7 +9,7 @@ static void help()
               << "  -g, --generations  specify the number of generations to simulate\n"
               << "  -r, --random       start with random cell contents\n"
               << "  -f, --file         specify the text-file name or path\n"
-              << "  -s, --size         specify the size of the grid in terms of numbers of rows and columns (only needed for random)\n"
+              << "  -s, --size         specify the size of the grid in terms of numbers of rows and columns (only needed for random). E.G. 5 rows and 6 columns: `--size 5 6`\n"
               << "  -a, --alive        specify the total number of initial alive cells to place (only needed for random)\n"
               << "  -h, --help         print this help message\n"
               << std::endl;

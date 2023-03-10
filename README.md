@@ -36,4 +36,42 @@ cd build
 ctest
 ```
 
-Additional build and running instructions left to the student.
+## **How to use the gofSimulator app:**
+
+Once, the cmake has compiled and you have done the testing, use the command line help prompt in the application gofSimulator:
+
+```
+./bin/gofSimulator -h
+```
+
+This will show you the different commands you can run. There are 2 types of commands you can run: random grid initialisation and grid initialisation from a file. For example:
+
+```
+./bin/gofSimulator --random --size 7 7 --alive 15 -g 10
+```
+
+This will run simulate the game for a 7x7 grid with 15, randomly placed, alive cells for 10 generations/iterations.
+
+
+```
+./bin/gofSimulator --file "test/data/glider.txt" -g 4
+```
+
+This will run the grid present in `glider.txt` for 4 generations.
+
+
+
+
+
+
+## **How to use the golStillLifes app:**
+
+This is similar to the above app, however it is now by default random. This will look for and only print those cells that do not change with the Game Of Life rules/instructions. For example, running a 4x4 grid of 10 randomly placed alive cells for 10 generations looks like:
+
+```
+./bin/golStillLifes --size 4 4 --alive 10 -g 10
+```
+
+With the result being:
+
+![still_lifes_4x4](/images/still_lifes_4x4.png)
