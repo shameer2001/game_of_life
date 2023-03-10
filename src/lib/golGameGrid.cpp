@@ -65,10 +65,10 @@ void GameGrid::PrintGrid() {
         for (auto j: i) {
 
             if (j == status_dead) {
-                std::cout << '-';
+                std::cout << "- ";
             }
             else if (j == status_alive) {
-                std::cout << 'o';
+                std::cout << "o ";
             }
 
         }
@@ -137,7 +137,58 @@ int GameGrid::LiveNeighbours(int row, int column) {
 
 
 
+// For Still Life applications:
+bool GameGrid::IfSameGrid(GameGrid grid2) {
+    
+    // Compare grid sizes
+    if (grid2.GetGridSize().first != GetGridSize().first) {
+        return false;
+    }
+    else if (grid2.GetGridSize().second != GetGridSize().second) {
+        return false;
+    }
 
+
+    // Compare grid cells
+    else {
+        for (int i = 0; i < grid2.GetGridSize().first; i++) {
+            for (int j = 0; j < grid2.GetGridSize().second; j++) {
+
+                if (Get(i, j) != grid2.Get(i, j)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
+
+
+
+bool GameGrid::IfEmpty() {
+
+    int grid_area = GetGridSize().first*GetGridSize().second;
+    int dead_num = 0;
+
+    for (int i = 0; i < GetGridSize().first; i++) {
+        for (int j = 0; j < GetGridSize().second; j++) {
+
+            if (Get(i, j) == status_dead) {
+                dead_num++;
+            }
+
+        }
+    }
+
+    if (grid_area == dead_num) {
+        return true;
+    }
+    else {
+        return false;
+    }
+
+
+}
 
 
 
@@ -202,12 +253,20 @@ void GameGrid::CheckCellLocation(int row, int col) {
 //     GameGrid testGrid1("test/data/glider.txt");
 //     testGrid1.PrintGrid();
 
+//     GameGrid testGrid2( 5, 5);
+
 //     // std::cout << testGrid1.Get(2,0) << std::endl;
 //     // std::cout << testGrid1.Get(3,1) << std::endl;
 //     // std::cout << testGrid1.Get(3,2) << std::endl;
 //     // std::cout << testGrid1.Get(2,2) << std::endl;
 //     // std::cout << testGrid1.Get(1,2) << std::endl;
 
-//     std::cout << testGrid1.LiveNeighbours(2, 0) << std::endl;
+//     // if (testGrid1.IfSameGrid( testGrid1 ) == true) {
+//     //     std::cout << testGrid1.IfSameGrid( testGrid1 ) << std::endl;
+//     // }
+//     //std::cout << testGrid1.LiveNeighbours(2, 0) << std::endl;
+
+
+//     std::cout << testGrid1.IfEmpty() << std::endl;
 
 // };

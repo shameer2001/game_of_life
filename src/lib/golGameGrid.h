@@ -36,6 +36,11 @@ class GameGrid
     void CheckCellLocation(int row, int col);
 
 
+    // For 'StillLife' app:
+    bool IfSameGrid(GameGrid grid2); 
+    bool IfEmpty(); 
+
+
 
 
     private:
