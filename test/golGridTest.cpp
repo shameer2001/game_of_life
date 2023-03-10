@@ -191,3 +191,66 @@ TEST_CASE("File Does Not Exist Error Message", "[GameGridFile]" ) {
   REQUIRE_NOTHROW(testGrid.CheckFileExists("../../test/data/oscillators.txt"));
   REQUIRE_NOTHROW(testGrid.CheckFileExists("../../test/data/still_lifes.txt"));
 }
+
+
+
+
+
+
+
+
+TEST_CASE("Live Neighbours Method Test", "[LiveNeighboursFunction]" ) {
+  GameGrid testGrid1("../../test/data/glider.txt");
+  GameGrid testGrid2("../../test/data/oscillators.txt");
+  GameGrid testGrid3("../../test/data/still_lifes.txt");
+  GameGrid testGrid4(5, 5, 25);
+
+  REQUIRE(testGrid1.LiveNeighbours(5, 8) == 0);
+  REQUIRE(testGrid1.LiveNeighbours(2, 0) == 1);
+  REQUIRE(testGrid1.LiveNeighbours(2, 1) == 5);
+
+  REQUIRE(testGrid2.LiveNeighbours(9, 3) == 4);
+  REQUIRE(testGrid2.LiveNeighbours(11, 11) == 0);
+
+
+  REQUIRE(testGrid3.LiveNeighbours(2, 2) == 5);
+  REQUIRE(testGrid3.LiveNeighbours(8, 7) == 3);
+
+
+  REQUIRE(testGrid4.LiveNeighbours(4, 4) == 3);
+  REQUIRE(testGrid4.LiveNeighbours(2, 2) == 8);
+
+  testGrid4.Set(2, 3, '-');
+  REQUIRE(testGrid4.LiveNeighbours(2, 2) == 7);
+  testGrid4.Set(2, 1, '-');
+  REQUIRE(testGrid4.LiveNeighbours(2, 2) == 6);
+
+}
+
+
+TEST_CASE("Live Neighbours Method Error Message Test", "[LiveNeighboursFunction]" ) {
+  GameGrid testGrid1("../../test/data/glider.txt");
+  GameGrid testGrid2("../../test/data/oscillators.txt");
+  GameGrid testGrid3("../../test/data/still_lifes.txt");
+  GameGrid testGrid4(5, 5, 25);
+
+  REQUIRE_NOTHROW(testGrid1.LiveNeighbours(5, 8));
+  REQUIRE_NOTHROW(testGrid2.LiveNeighbours(11, 11));
+  REQUIRE_NOTHROW(testGrid3.LiveNeighbours(2, 0));
+  REQUIRE_NOTHROW(testGrid4.LiveNeighbours(4, 4));
+
+  REQUIRE_THROWS(testGrid1.LiveNeighbours(10, 10));
+  REQUIRE_THROWS(testGrid2.LiveNeighbours(12, 12));
+  REQUIRE_THROWS(testGrid3.LiveNeighbours(10, 10));
+  REQUIRE_THROWS(testGrid4.LiveNeighbours(5, 5));
+
+
+  REQUIRE_THROWS(testGrid1.LiveNeighbours(544, 988));
+  REQUIRE_THROWS(testGrid2.LiveNeighbours(5, 12));
+  REQUIRE_THROWS(testGrid3.LiveNeighbours(100, 10));
+
+  REQUIRE_THROWS(testGrid1.LiveNeighbours(-10, 9));
+  REQUIRE_THROWS(testGrid2.LiveNeighbours(5, -12));
+  REQUIRE_THROWS(testGrid3.LiveNeighbours(-2, -4));
+
+}

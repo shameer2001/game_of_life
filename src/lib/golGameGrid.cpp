@@ -98,13 +98,12 @@ void GameGrid::SetRand() {
         }
     }
 
-    
-
-        
 }
 
 
+
 int GameGrid::LiveNeighbours(int row, int column) {
+    CheckCellLocation(row, column);
 
     int live_num = 0;
 
@@ -123,6 +122,11 @@ int GameGrid::LiveNeighbours(int row, int column) {
     return live_num;
 
 }
+
+
+
+
+
 
 
 
@@ -164,6 +168,19 @@ void GameGrid::CheckFileExists(std::string file_path) {
         }
     }
     catch(std::runtime_error &err_msg) {
+        std::cerr << "Error: " << err_msg.what() << std::endl;
+        throw;
+    }
+}
+
+
+void GameGrid::CheckCellLocation(int row, int col) {
+    try{
+        if (row >= rows || col >= columns  || row < 0 || col < 0) {
+            throw std::out_of_range("The row and column number must be non-negative and within the grid");
+        }
+    }
+    catch(std::out_of_range &err_msg) {
         std::cerr << "Error: " << err_msg.what() << std::endl;
         throw;
     }

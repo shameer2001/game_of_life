@@ -33,6 +33,7 @@ class GameGrid
     void CheckGridSize(int row_num, int col_num);
     void CheckAliveNum(int row_num, int col_num, int alive_num); 
     void CheckFileExists(std::string file_path);
+    void CheckCellLocation(int row, int col);
 
 
 
