@@ -9,10 +9,10 @@ TEST_CASE( "Test Instantiation of GameGrid class", "[GameGrid]" ) {
   GameGrid testGrid(2, 2);
 
   SECTION("Get function", "[GameGrid]") {
-    REQUIRE( testGrid.Get(0, 0) == '-');
-    REQUIRE( testGrid.Get(0, 1) == '-');
-    REQUIRE( testGrid.Get(1, 0) == '-');
-    REQUIRE( testGrid.Get(1, 1) == '-');
+    REQUIRE(testGrid.Get(0, 0) == '-');
+    REQUIRE(testGrid.Get(0, 1) == '-');
+    REQUIRE(testGrid.Get(1, 0) == '-');
+    REQUIRE(testGrid.Get(1, 1) == '-');
   }
 
 
@@ -20,10 +20,10 @@ TEST_CASE( "Test Instantiation of GameGrid class", "[GameGrid]" ) {
     testGrid.Set(1, 0, 'o');
     testGrid.Set(1, 1, 'o');
 
-    REQUIRE( testGrid.Get(0, 0) == '-');
-    REQUIRE( testGrid.Get(0, 1) == '-');
-    REQUIRE( testGrid.Get(1, 0) == 'o');
-    REQUIRE( testGrid.Get(1, 1) == 'o');
+    REQUIRE(testGrid.Get(0, 0) == '-');
+    REQUIRE(testGrid.Get(0, 1) == '-');
+    REQUIRE(testGrid.Get(1, 0) == 'o');
+    REQUIRE(testGrid.Get(1, 1) == 'o');
   }
 
 }
@@ -130,11 +130,11 @@ TEST_CASE("Check File Constructor Grid Cell", "[GameGridFile]" ) {
 
 
     // Check alive and dead cells and location:
-    REQUIRE( testGrid1.Get(2, 0) == 'o');
-    REQUIRE( testGrid1.Get(3, 1) == 'o');
-    REQUIRE( testGrid1.Get(3, 2) == 'o');
-    REQUIRE( testGrid1.Get(2, 2) == 'o');
-    REQUIRE( testGrid1.Get(1, 2) == 'o');
+    REQUIRE(testGrid1.Get(2, 0) == 'o');
+    REQUIRE(testGrid1.Get(3, 1) == 'o');
+    REQUIRE(testGrid1.Get(3, 2) == 'o');
+    REQUIRE(testGrid1.Get(2, 2) == 'o');
+    REQUIRE(testGrid1.Get(1, 2) == 'o');
 
     int grid1Rows = testGrid1.GetGridSize().first;
     int grid1Cols = testGrid1.GetGridSize().second;
@@ -171,9 +171,9 @@ TEST_CASE("Check File Constructor Grid Cell", "[GameGridFile]" ) {
   testGrid3.Set(9, 9, 'o');
 
   SECTION("Check if Set method works with grid from file", "[GameGridFile]") {
-    REQUIRE( testGrid1.Get(2, 0) == '-');
-    REQUIRE( testGrid2.Get(5, 8) == 'o');
-    REQUIRE( testGrid3.Get(9, 9) == 'o');
+    REQUIRE(testGrid1.Get(2, 0) == '-');
+    REQUIRE(testGrid2.Get(5, 8) == 'o');
+    REQUIRE(testGrid3.Get(9, 9) == 'o');
   }
 }
 
