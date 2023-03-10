@@ -29,20 +29,20 @@ void GameOfLife::takeStep() {
 
 
             // Rule 1: A dead cell with exactly three live neighbours should become a live cell.
-            if(grid_current.Get(i, j) == '-') {
+            if(grid_current.Get(i, j) == false) {
                 
                 if(live_neighb == 3) {
-                    grid_next.Set(i, j, 'o');
+                    grid_next.Set(i, j, true);
                 }
             }
 
 
             // Rule 2: A live cell with two or three live neighbours should stay alive.
             // Rule 3: A live cell with less than two or more than three live neighbours should die.
-            else if(grid_current.Get(i, j) == 'o') {
+            else if(grid_current.Get(i, j) == true) {
 
                 if(live_neighb < 2    ||    live_neighb > 3) {
-                    grid_next.Set(i, j, '-');
+                    grid_next.Set(i, j, false);
                 }
             }
 
@@ -77,7 +77,7 @@ void GameOfLife::printGrid() {
 //     GameOfLife GameOfLife(my_grid);
 //     //GameOfLife.printGrid();
 
-//     //my_grid.Set(4, 5, '-');
+//     //my_grid.Set(4, 5, false);
 
 
 

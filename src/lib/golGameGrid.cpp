@@ -5,7 +5,7 @@ GameGrid::GameGrid() {};
 
 GameGrid::GameGrid(int row_num, int column_num): rows(row_num), columns(column_num)   {
     CheckGridSize(rows, columns);
-    grid = std::vector<std::vector<char>>(rows, std::vector<char>(columns, '-'));
+    grid = std::vector<std::vector<bool>>(rows, std::vector<bool>(columns, status_dead));
 }
 
 // Constructor for random grid initialisation
@@ -14,7 +14,7 @@ GameGrid::GameGrid(int row_num, int column_num, int alive_num): rows(row_num), c
     CheckAliveNum(rows, columns, alive);
 
 
-    grid = std::vector<std::vector<char>>(rows, std::vector<char>(columns, '-'));
+    grid = std::vector<std::vector<bool>>(rows, std::vector<bool>(columns, status_dead));
     SetRand();
 }
 
@@ -27,12 +27,17 @@ GameGrid::GameGrid(std::string file_path) {
     std::string line;
     while (std::getline(file, line)) {
 
-        std::vector<char> single_line;
+        std::vector<bool> single_line;
 
-        for (char i : line) {
-            if (i == 'o' || i == '-') {
-                single_line.push_back(i);
+        for (auto i : line) {
+
+            if (i == '-') {
+                single_line.push_back(status_dead);
             } 
+            else if (i == 'o') {
+                single_line.push_back(status_alive);
+            }
+
         }
         grid.push_back(single_line);
     }
@@ -56,9 +61,16 @@ std::pair<int, int> GameGrid::GetGridSize() {
 void GameGrid::PrintGrid() {
     
     // Loop through entire grid:
-    for (auto &i: grid) {
-        for (auto &j: i) {
-            std::cout << j;
+    for (auto i: grid) {
+        for (auto j: i) {
+
+            if (j == status_dead) {
+                std::cout << '-';
+            }
+            else if (j == status_alive) {
+                std::cout << 'o';
+            }
+
         }
         std::cout << '\n';
     }
@@ -67,10 +79,10 @@ void GameGrid::PrintGrid() {
 
 
 
-char GameGrid::Get(int row, int column) {
+bool GameGrid::Get(int row, int column) {
     return grid[row][column];
 }
-void GameGrid::Set(int row, int column, char value) {
+void GameGrid::Set(int row, int column, bool value) {
     grid[row][column] = value;
 }
 
@@ -92,9 +104,9 @@ void GameGrid::SetRand() {
         int rand_column = rand()%(columns -1 + 1); 
 
 
-        if( Get(rand_row, rand_column) == '-') {
+        if( Get(rand_row, rand_column) == status_dead) {
             alive_count++;
-            Set(rand_row, rand_column, 'o');
+            Set(rand_row, rand_column, status_alive);
         }
     }
 
@@ -112,7 +124,7 @@ int GameGrid::LiveNeighbours(int row, int column) {
         for (int j = column - 1; j <= column + 1; j++) {
 
             if (i >= 0 && j >= 0 && i < rows && j < columns 
-            && !(i == row && j == column) && Get(i, j) == 'o') {
+            && !(i == row && j == column) && Get(i, j) == status_alive) {
                 live_num++;
             }
 

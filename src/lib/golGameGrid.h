@@ -23,8 +23,8 @@ class GameGrid
     std::pair<int, int> GetGridSize();
 
     void PrintGrid();
-    char Get(int row, int column);
-    void Set(int row, int column, char alive);
+    bool Get(int row, int column);
+    void Set(int row, int column, bool alive);
     int LiveNeighbours(int row, int column);
 
     void SetRand();
@@ -40,13 +40,16 @@ class GameGrid
 
     private:
 
-    //bool alive_status;
+
     int columns;
     int rows;
     int alive; // Number of alive cells for random initializer constructor
 
 
-    std::vector<std::vector<char>> grid;
+    bool status_dead = false;
+    bool status_alive = true;
+
+    std::vector<std::vector<bool>> grid;
     
 
 };

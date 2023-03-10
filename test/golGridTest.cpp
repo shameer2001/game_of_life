@@ -10,21 +10,21 @@ TEST_CASE( "Test Instantiation of GameGrid class", "[GameGrid]" ) {
   GameGrid testGrid(2, 2);
 
   SECTION("Get function", "[GameGrid]") {
-    REQUIRE(testGrid.Get(0, 0) == '-');
-    REQUIRE(testGrid.Get(0, 1) == '-');
-    REQUIRE(testGrid.Get(1, 0) == '-');
-    REQUIRE(testGrid.Get(1, 1) == '-');
+    REQUIRE(testGrid.Get(0, 0) == false);
+    REQUIRE(testGrid.Get(0, 1) == false);
+    REQUIRE(testGrid.Get(1, 0) == false);
+    REQUIRE(testGrid.Get(1, 1) == false);
   }
 
 
   SECTION("Set function", "[GameGrid]") {
-    testGrid.Set(1, 0, 'o');
-    testGrid.Set(1, 1, 'o');
+    testGrid.Set(1, 0, true);
+    testGrid.Set(1, 1, true);
 
-    REQUIRE(testGrid.Get(0, 0) == '-');
-    REQUIRE(testGrid.Get(0, 1) == '-');
-    REQUIRE(testGrid.Get(1, 0) == 'o');
-    REQUIRE(testGrid.Get(1, 1) == 'o');
+    REQUIRE(testGrid.Get(0, 0) == false);
+    REQUIRE(testGrid.Get(0, 1) == false);
+    REQUIRE(testGrid.Get(1, 0) == true);
+    REQUIRE(testGrid.Get(1, 1) == true);
   }
 
 }
@@ -75,10 +75,10 @@ TEST_CASE("Confirm Same Number of Alive Cells in 2 Equal Parameter Grids", "[Gam
   for(int i = 0; i < rows; i++) {
     for(int j = 0; j < columns; j++) {
 
-      if(testGrid1.Get(i, j) == 'o') {
+      if(testGrid1.Get(i, j) == true) {
         grid1_alive++;
       }
-      if(testGrid2.Get(i, j) == 'o') {
+      if(testGrid2.Get(i, j) == true) {
         grid2_alive++;
       }
 
@@ -131,11 +131,11 @@ TEST_CASE("Check File Constructor Grid Cell", "[GameGridFile]" ) {
 
 
     // Check alive and dead cells and location:
-    REQUIRE(testGrid1.Get(2, 0) == 'o');
-    REQUIRE(testGrid1.Get(3, 1) == 'o');
-    REQUIRE(testGrid1.Get(3, 2) == 'o');
-    REQUIRE(testGrid1.Get(2, 2) == 'o');
-    REQUIRE(testGrid1.Get(1, 2) == 'o');
+    REQUIRE(testGrid1.Get(2, 0) == true);
+    REQUIRE(testGrid1.Get(3, 1) == true);
+    REQUIRE(testGrid1.Get(3, 2) == true);
+    REQUIRE(testGrid1.Get(2, 2) == true);
+    REQUIRE(testGrid1.Get(1, 2) == true);
 
     int grid1Rows = testGrid1.GetGridSize().first;
     int grid1Cols = testGrid1.GetGridSize().second;
@@ -152,7 +152,7 @@ TEST_CASE("Check File Constructor Grid Cell", "[GameGridFile]" ) {
         || (i != 1 && j != 2)) // Except cells already tested are alive
         {
 
-          if(testGrid1.Get(i, j) == '-') {
+          if(testGrid1.Get(i, j) == false) {
             dead_num++;
 
           }
@@ -167,14 +167,14 @@ TEST_CASE("Check File Constructor Grid Cell", "[GameGridFile]" ) {
 
 
 
-  testGrid1.Set(2, 0, '-');
-  testGrid2.Set(5, 8, 'o');
-  testGrid3.Set(9, 9, 'o');
+  testGrid1.Set(2, 0, false);
+  testGrid2.Set(5, 8, true);
+  testGrid3.Set(9, 9, true);
 
   SECTION("Check if Set method works with grid from file", "[GameGridFile]") {
-    REQUIRE(testGrid1.Get(2, 0) == '-');
-    REQUIRE(testGrid2.Get(5, 8) == 'o');
-    REQUIRE(testGrid3.Get(9, 9) == 'o');
+    REQUIRE(testGrid1.Get(2, 0) == false);
+    REQUIRE(testGrid2.Get(5, 8) == true);
+    REQUIRE(testGrid3.Get(9, 9) == true);
   }
 }
 
@@ -221,9 +221,9 @@ TEST_CASE("Live Neighbours Method Test", "[LiveNeighboursFunction]" ) {
   REQUIRE(testGrid4.LiveNeighbours(4, 4) == 3);
   REQUIRE(testGrid4.LiveNeighbours(2, 2) == 8);
 
-  testGrid4.Set(2, 3, '-');
+  testGrid4.Set(2, 3, false);
   REQUIRE(testGrid4.LiveNeighbours(2, 2) == 7);
-  testGrid4.Set(2, 1, '-');
+  testGrid4.Set(2, 1, false);
   REQUIRE(testGrid4.LiveNeighbours(2, 2) == 6);
 
 }
@@ -280,11 +280,11 @@ TEST_CASE("takeStep Method Test", "[GOLtakeStep]") {
 
 
   // Check alive and dead cells and location BEFORE TAKE STEP:
-  REQUIRE(testGol.getGridCurr().Get(2, 0) == 'o');
-  REQUIRE(testGol.getGridCurr().Get(3, 1) == 'o');
-  REQUIRE(testGol.getGridCurr().Get(3, 2) == 'o');
-  REQUIRE(testGol.getGridCurr().Get(2, 2) == 'o');
-  REQUIRE(testGol.getGridCurr().Get(1, 2) == 'o');
+  REQUIRE(testGol.getGridCurr().Get(2, 0) == true);
+  REQUIRE(testGol.getGridCurr().Get(3, 1) == true);
+  REQUIRE(testGol.getGridCurr().Get(3, 2) == true);
+  REQUIRE(testGol.getGridCurr().Get(2, 2) == true);
+  REQUIRE(testGol.getGridCurr().Get(1, 2) == true);
 
 
   int dead_num = 0;
@@ -298,7 +298,7 @@ TEST_CASE("takeStep Method Test", "[GOLtakeStep]") {
       || (i != 2 && j != 2) 
       || (i != 1 && j != 2)) // Except cells already tested are alive
       {
-        if(testGol.getGridCurr().Get(i, j) == '-') {
+        if(testGol.getGridCurr().Get(i, j) == false) {
           dead_num++;
         }
       }
@@ -317,11 +317,11 @@ TEST_CASE("takeStep Method Test", "[GOLtakeStep]") {
 
 
   // Check alive and dead cells and location AFTER TAKE STEP:
-  REQUIRE(testGol.getGridNext().Get(1, 1) == 'o');
-  REQUIRE(testGol.getGridNext().Get(2, 3) == 'o');
-  REQUIRE(testGol.getGridNext().Get(2, 2) == 'o');
-  REQUIRE(testGol.getGridNext().Get(3, 2) == 'o');
-  REQUIRE(testGol.getGridNext().Get(3, 1) == 'o');
+  REQUIRE(testGol.getGridNext().Get(1, 1) == true);
+  REQUIRE(testGol.getGridNext().Get(2, 3) == true);
+  REQUIRE(testGol.getGridNext().Get(2, 2) == true);
+  REQUIRE(testGol.getGridNext().Get(3, 2) == true);
+  REQUIRE(testGol.getGridNext().Get(3, 1) == true);
 
 
   int dead_num_next = 0;
@@ -335,7 +335,7 @@ TEST_CASE("takeStep Method Test", "[GOLtakeStep]") {
       || (i != 3 && j != 2)
       || (i != 3 && j != 1) ) 
       {
-        if(testGol.getGridNext().Get(i, j) == '-') {
+        if(testGol.getGridNext().Get(i, j) == false) {
           dead_num_next++;
         }
       }
