@@ -19,6 +19,7 @@ set(PHAS0100ASSIGNMENT1_LIBRARY_SRCS
   golMyFunctions.cpp
   golException.cpp
   golGameGrid.cpp
+  golGameOfLife.cpp
 
 )
 
