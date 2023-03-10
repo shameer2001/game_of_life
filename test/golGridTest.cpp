@@ -1,6 +1,7 @@
 #include "catch.hpp"
 #include "golCatchMain.h"
 #include "golGameGrid.h"
+#include "golGameOfLife.h"
 #include <iostream>
 #include <vector>
 
@@ -253,4 +254,92 @@ TEST_CASE("Live Neighbours Method Error Message Test", "[LiveNeighboursFunction]
   REQUIRE_THROWS(testGrid2.LiveNeighbours(5, -12));
   REQUIRE_THROWS(testGrid3.LiveNeighbours(-2, -4));
 
+}
+
+
+
+
+
+
+
+
+
+
+
+// Test GameOfLife Class:
+
+TEST_CASE("takeStep Method Test", "[GOLtakeStep]") {
+
+  GameGrid testGrid("../../test/data/glider.txt");
+  GameOfLife testGol(testGrid);
+  testGol.takeStep();
+
+
+  int gridRows = testGol.getGridCurr().GetGridSize().first;
+  int gridCols = testGol.getGridCurr().GetGridSize().second;
+
+
+
+  // Check alive and dead cells and location BEFORE TAKE STEP:
+  REQUIRE(testGol.getGridCurr().Get(2, 0) == 'o');
+  REQUIRE(testGol.getGridCurr().Get(3, 1) == 'o');
+  REQUIRE(testGol.getGridCurr().Get(3, 2) == 'o');
+  REQUIRE(testGol.getGridCurr().Get(2, 2) == 'o');
+  REQUIRE(testGol.getGridCurr().Get(1, 2) == 'o');
+
+
+  int dead_num = 0;
+
+  for(int i = 0; i < gridRows; i++) {
+    for(int j = 0; j < gridCols; j++) {
+
+      if ( (i != 2 && j != 0) 
+      || (i != 3 && j != 1) 
+      || (i != 3 && j != 2) 
+      || (i != 2 && j != 2) 
+      || (i != 1 && j != 2)) // Except cells already tested are alive
+      {
+        if(testGol.getGridCurr().Get(i, j) == '-') {
+          dead_num++;
+        }
+      }
+    }
+  }
+
+  REQUIRE(dead_num == 95);
+  REQUIRE(gridRows*gridCols - dead_num == 5); // Alive number
+
+
+
+
+
+
+  // Check alive and dead cells and location AFTER TAKE STEP:
+  REQUIRE(testGol.getGridNext().Get(1, 1) == 'o');
+  REQUIRE(testGol.getGridNext().Get(2, 3) == 'o');
+  REQUIRE(testGol.getGridNext().Get(2, 2) == 'o');
+  REQUIRE(testGol.getGridNext().Get(3, 2) == 'o');
+  REQUIRE(testGol.getGridNext().Get(3, 1) == 'o');
+
+
+  int dead_num_next = 0;
+
+  for(int i = 0; i < gridRows; i++) {
+    for(int j = 0; j < gridCols; j++) {
+
+      if ( (i != 1 && j != 1) 
+      || (i != 2 && j != 3)
+      || (i != 2 && j != 2)
+      || (i != 3 && j != 2)
+      || (i != 3 && j != 1) ) 
+      {
+        if(testGol.getGridNext().Get(i, j) == '-') {
+          dead_num_next++;
+        }
+      }
+    }
+  }
+
+  REQUIRE(dead_num_next == 95);
+  REQUIRE(gridRows*gridCols - dead_num_next == 5); 
 }
