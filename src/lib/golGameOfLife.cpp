@@ -47,10 +47,10 @@ void GameOfLife::takeStep() {
             }
 
      
-        };
-    };
+        }
+    }
 
-    //grid_current = grid_next;
+    grid_current = grid_next;
 
 }
 
@@ -58,7 +58,7 @@ void GameOfLife::takeStep() {
 
 void GameOfLife::printGrid() {
     std::cout << "==================New-Iteration=================" << std::endl;
-    grid_next.PrintGrid();
+    grid_current.PrintGrid();
 
 }
 

@@ -272,7 +272,6 @@ TEST_CASE("takeStep Method Test", "[GOLtakeStep]") {
 
   GameGrid testGrid("../../test/data/glider.txt");
   GameOfLife testGol(testGrid);
-  testGol.takeStep();
 
 
   int gridRows = testGol.getGridCurr().GetGridSize().first;
@@ -310,6 +309,9 @@ TEST_CASE("takeStep Method Test", "[GOLtakeStep]") {
   REQUIRE(gridRows*gridCols - dead_num == 5); // Alive number
 
 
+
+
+  testGol.takeStep();
 
 
 
